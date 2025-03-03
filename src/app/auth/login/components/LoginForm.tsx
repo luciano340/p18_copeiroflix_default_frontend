@@ -1,11 +1,42 @@
 'use client';
-import React from "react";
+import React, { useState } from "react";
 import { InputField } from "../../shared_components/input_field";
+import { useRouter } from "next/navigation";
+
+type ServerError = {
+    message: string;
+}
 
 export function LoginForm() {
-    const HandleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        console.log('Enviado')
+    const router = useRouter();
+    const [errors, setErrors] = useState<string[]>([]);
+
+    const HandleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        const formData = new FormData(e.currentTarget);
+        const email = formData.get('email');
+        const password = formData.get('senha');
+
+        try {
+            const response = await fetch('/auth/login/api', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, password })
+            });
+
+            if(response.ok){
+                router.push('/')
+                return;
+            }
+
+            const payload: ServerError[] = await response.json();
+            setErrors(payload.map((error) => error.message))
+
+        } catch(error) {
+            console.error('Deu ruim: ' + error);
+            setErrors(['An Unkown error occurred.'])
+
+        };
     };
 
     return (
@@ -16,7 +47,7 @@ export function LoginForm() {
                 </h1>
                 <p className='text=sm text-white'>
                     Novo por aqui? {' '}
-                    <a href='#' className='text-blue-200 hover:underline'>
+                    <a href='/auth/register' className='text-blue-200 hover:underline'>
                         Registre
                     </a>
                 </p>

@@ -26,7 +26,7 @@ export function MovieRow({ sectionTitle }: MovieRowProps) {
             {sectionTitle}
           </h2>
         </div>
-        <div className='-ml-6 flex space-x-8 overflow-x-scroll p-6 scrollbar-hide '>
+        <div className='-ml-6 flex space-x-8 overflow-x-scroll p-6 scrollbar-hide'>
           {[1, 2, 3, 4, 5].map((index) => (
             <MovieCard key={index} index={index} />
           ))}

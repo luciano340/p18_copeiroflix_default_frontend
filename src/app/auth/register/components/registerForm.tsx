@@ -43,7 +43,7 @@ export function RegisterForm() {
                 </h1>
                 <p className='text=sm text-white'>
                     Já possui uma conta? {' '}
-                    <a href='#' className='text-blue-200 hover:underline'>
+                    <a href='auth/login' className='text-blue-200 hover:underline'>
                         Entrar
                     </a>
                 </p>
