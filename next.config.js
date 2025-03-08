@@ -10,6 +10,9 @@ const nextConfig = {
     eslint: {
         ignoreDuringBuilds: true,
     },
+    images: {
+      domains: ['m.media-amazon.com']
+    }
   };
   
   module.exports = nextConfig;
