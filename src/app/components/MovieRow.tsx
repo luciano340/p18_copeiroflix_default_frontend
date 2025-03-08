@@ -1,23 +1,13 @@
-import Image from 'next/image';
+import { Movies } from '../types/movies';
+import { MovieCard } from './MovieCard'
 
 type MovieRowProps = {
   sectionTitle: string;
+  movies: Movies;
 };
 
-type MovieCardProps = {
-  index: number;
-};
 
-const MovieCard = ({ index }: MovieCardProps) => (
-  <div
-    key={index}
-    className='sn:h-36 group relative h-28 min-w-[200px] transform bg-gradient-to-t from-transparent to-black transition-transform duration-200 ease-in hover:z-50 hover:scale-110 md:h-40 md:min-w-[380px] lg:h-52 lg:min-w-[400px]'
-  >
-    <Image src={`/${index}.jpg`} fill={true} alt='teste' className='rounded' />
-  </div>
-);
-
-export function MovieRow({ sectionTitle }: MovieRowProps) {
+export function MovieRow({ sectionTitle, movies }: MovieRowProps) {
   return (
     <div className='flex-col mb-4 md:mb-8 lg:mb-12'>
       <div className='flex-col mb-2 lg:mb-4'>
@@ -26,9 +16,12 @@ export function MovieRow({ sectionTitle }: MovieRowProps) {
             {sectionTitle}
           </h2>
         </div>
-        <div className='-ml-6 flex space-x-8 overflow-x-scroll p-6 scrollbar-hide'>
-          {[1, 2, 3, 4, 5].map((index) => (
-            <MovieCard key={index} index={index} />
+        <div className='grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-8'>
+          {movies.map((movie, index) => (
+            <MovieCard
+              key={movie.id}
+              movie={movie}
+            />
           ))}
         </div>
       </div>

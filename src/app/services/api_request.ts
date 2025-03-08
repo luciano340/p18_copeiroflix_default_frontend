@@ -1,4 +1,4 @@
-const API_BASE_URL = process.env.API_BASE_URL || "https://localhost:3333"
+const API_BASE_URL = process.env.API_BASE_URL || "http://localhost:3333"
 
 export interface ApiQueryParams {
     [key: string]: string | number | boolean;
@@ -33,14 +33,12 @@ export async function apiRequest(
 
     try {
         const response = await fetch(`${API_BASE_URL}/${endpoint}${queryString}`);
-        const data = await (await response).json();
         if (!response.ok) {
             throw new Error(`API  Request failed: ${response.statusText}`)
         }
         return response.json()
 
     } catch (error) {
-        console.log(error)
         throw error; 
     }
     
