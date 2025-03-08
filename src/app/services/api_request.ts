@@ -33,6 +33,7 @@ export async function apiRequest(
 
     try {
         const response = await fetch(`${API_BASE_URL}/${endpoint}${queryString}`);
+        console.log('aqui: ' + `${API_BASE_URL}/${endpoint}${queryString}`)
         if (!response.ok) {
             throw new Error(`API  Request failed: ${response.statusText}`)
         }
