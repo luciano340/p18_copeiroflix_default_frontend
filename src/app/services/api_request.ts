@@ -33,8 +33,10 @@ export async function apiRequest(
 
     try {
         const response = await fetch(`${API_BASE_URL}/${endpoint}${queryString}`);
-        console.log('aqui: ' + `${API_BASE_URL}/${endpoint}${queryString}`)
         if (!response.ok) {
+            if (response.status === 404) {
+                return null;
+            }
             throw new Error(`API  Request failed: ${response.statusText}`)
         }
         return response.json()
